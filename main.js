@@ -26,7 +26,7 @@ $(document).ready(function() {
                 console.log(numero_vendita_corrente);
                 var data_corrente = moment(vendita.date, "DD/M/YYYY");
                 console.log(data_corrente);
-                var mese_corrente = data_corrente.format('MM');
+                var mese_corrente = data_corrente.format('MMMM');
                 console.log(mese_corrente);
                 if (!chiavi_mesi.hasOwnProperty(mese_corrente)) {
                     chiavi_mesi[mese_corrente]= numero_vendita_corrente;
@@ -36,10 +36,10 @@ $(document).ready(function() {
                 }
                 console.log(chiavi_mesi);
             }
-            var chiavi = Object.keys(chiavi_mesi);
-            console.log(chiavi);
-            var valori = Object.values(chiavi_mesi);
-            console.log(valori);
+            // var chiavi = Object.keys(chiavi_mesi);
+            // console.log(chiavi);
+            // var valori = Object.values(chiavi_mesi);
+            // console.log(valori);
         }// fine oggetto
 
     });
@@ -50,11 +50,12 @@ $(document).ready(function() {
         data: {
             // nomi dei mesi
             labels: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno'],
+            // labels: [chiavi],
             datasets: [{
-                label: 'Vendite per ogni mese',
+                label: 'Sales for each month',
                 // dati vendita
                 data: [12, 19, 3, 5, 2, 3],
-
+                // data: [valori],
             }]
         },
     });
