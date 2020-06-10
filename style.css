@@ -4,5 +4,6 @@
     box-sizing: border-box;
 }
 .chart-container{
-    width: 400px;
+    margin: auto;
+    width: 500px;
 }

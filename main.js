@@ -10,6 +10,8 @@
 
 
 $(document).ready(function() {
+    // creo un oggetto dove mettere tutti i mesi ove ci son state vendite
+    var chiavi_mesi = {};
 	//Chiamata ajax
     $.ajax({
         // qui parte l'oggetto dei dischi dieci musicali
@@ -26,36 +28,30 @@ $(document).ready(function() {
                 console.log(data_corrente);
                 var mese_corrente = data_corrente.format('MM');
                 console.log(mese_corrente);
+                if (!chiavi_mesi.hasOwnProperty(mese_corrente)) {
+                    chiavi_mesi[mese_corrente]= numero_vendita_corrente;
+                }
+                else {
+                    chiavi_mesi[mese_corrente] += numero_vendita_corrente;
+                }
+                console.log(chiavi_mesi);
             }
+            var chiavi = Object.keys(chiavi_mesi);
+            console.log(chiavi);
+            var valori = Object.values(chiavi_mesi);
+            console.log(valori);
         }// fine oggetto
+
     });
 
-    // function stampahtml(infodischi) {
-    //     var schedadisco = $('#entry-template').html();
-    //     var template_function = Handlebars.compile(schedadisco);
-    //
-    //     for (var i = 0; i < infodischi.length; i++) {
-    //         var info= infodischi[i];
-    //         var disco = {
-    //             'poster': info.poster,
-    //             'title' : info.title,
-    //             'author': info.author,
-    //             'year': info.year,
-    //             'genre': info.genre,
-    //             'classe': info.genre,
-    //         }
-    //         var html_finale = template_function(disco);
-    //         $('.cds-container.container').append(html_finale);
-    //     }
-    // }
     var ctx = $('#myChart');
     var myChart = new Chart(ctx, {
         type: 'line',
         data: {
             // nomi dei mesi
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            labels: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno'],
             datasets: [{
-                label: '# of Votes',
+                label: 'Vendite per ogni mese',
                 // dati vendita
                 data: [12, 19, 3, 5, 2, 3],
 
