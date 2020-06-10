@@ -15,14 +15,19 @@ $(document).ready(function() {
         // qui parte l'oggetto dei dischi dieci musicali
         'url': 'http://157.230.17.132:4033/sales',
         'method': 'GET',
-        'success': function(data) {
-        // var infodisco = disco.response;
-            // stampo le informazioni per ogni disco
-            // console.log(data.id);
-            console.log(data);
-        }
-    }// fine oggetto
-    );
+        'success': function(vendite) {
+            console.log(vendite);
+            for (var i = 0; i < vendite.length; i++) {
+                var vendita = vendite[i]
+                console.log(vendita);
+                var numero_vendita_corrente = vendita.amount;
+                console.log(numero_vendita_corrente);
+                var data_corrente = moment(vendita.date, "DD/M/YYYY");
+                console.log(data_corrente);
+                var mese_corrente = data_corrente
+            }
+        }// fine oggetto
+    });
 
     // function stampahtml(infodischi) {
     //     var schedadisco = $('#entry-template').html();
