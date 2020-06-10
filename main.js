@@ -24,7 +24,8 @@ $(document).ready(function() {
                 console.log(numero_vendita_corrente);
                 var data_corrente = moment(vendita.date, "DD/M/YYYY");
                 console.log(data_corrente);
-                var mese_corrente = data_corrente
+                var mese_corrente = data_corrente.format('MM');
+                console.log(mese_corrente);
             }
         }// fine oggetto
     });
