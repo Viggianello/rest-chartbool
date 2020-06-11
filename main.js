@@ -23,10 +23,21 @@ $(document).ready(function() {
         'method': 'GET',
         'success': function(vendite) {
             console.log(vendite);
+            /* grafico vendite mensili */
             var dati_vendite_mensili = prepara_dati_vendite_mensili(vendite);
             var mesi = Object.keys(dati_vendite_mensili);
             var dati_mesi = Object.values(dati_vendite_mensili);
             disegna_grafico_vendite_mensili(mesi, dati_mesi);
+
+            /* grafico vendite venditore */
+            // costruisco un oggetto che mappa i venditori con il totale delle vendite
+            var dati_vendite_venditori = prepara_dati_vendite_venditori(vendite);
+            // estraggo le chiavi, che saranno le etichette del grafico
+            var nomi_venditori = Object.keys(dati_vendite_venditori);
+            // estraggo i valori, che saranno i dati del grafico
+            var dati_venditori = Object.values(dati_vendite_venditori);
+            // disegno il grafico passandogli le etichette e i dati
+            disegna_grafico_vendite_venditori(nomi_venditori, dati_venditori);
         },
         'error': function() {
             console.log('si è verificato un errore');
@@ -89,34 +100,48 @@ $(document).ready(function() {
             console.log(importo_vendita_corrente);
             var nome_corrente = vendita_corrente.salesman;
             console.log(nome_corrente);
-            // incremento i valori di vendite per ogni mese corrente
-            vendite_mensili[mese_corrente]+= importo_vendita_corrente;
             if (!vendite_venditori.hasOwnProperty(nome_corrente)) {
                 vendite_venditori[nome_corrente]= importo_vendita_corrente;
             }
             else {
                 vendite_venditori[nome_corrente] += importo_vendita_corrente;
             }
-            tatale_vendite += importo_vendita_corrente;
+            totale_vendite += importo_vendita_corrente;
         }
         for (var nome_venditore in vendite_venditori) {
+            // recupero l'importo totale di questo venditore
             var importo_venditore = vendite_venditori[nome_venditore];
+            // calcolo la percentuale delle sue vendite sul totale
             var percentuale_venditore = importo_venditore *100 / totale_vendite.toFixed(1);
+            // imposto la sua percetuale come valore
+            vendite_venditori[nome_venditore] = percentuale_venditore;
         }
         return vendite_venditori;
     }
     function disegna_grafico_vendite_venditori(etichette, dati) {
-        var ctx = $('#myChart');
+        var ctx = $('#myChart2');
         var myChart = new Chart(ctx, {
             type: 'pie',
             data: {
-                // nomi dei venditori
                 labels: etichette,
                 datasets: [{
-                    label: 'Vendite totali ripartite dai venditori nel 2017',
+                    label: 'importi vendite',
                     data: dati,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)'
+                    ],
+                    borderWidth: 1
                 }]
-            },
+            }
         });
     }
 });
