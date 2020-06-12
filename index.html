@@ -10,6 +10,21 @@
        integrity="sha256-AdQN98MVZs44Eq2yTwtoKufhnU+uZ7v2kXnD5vqzZVo=" crossorigin="anonymous"></script>
     </head>
     <body>
+        <header>
+            <select id="scelta-venditore">
+                <option value="">-- scegli venditore--</option>
+                <option value="Riccardo">Riccardo</option>
+                <option value=""></option>
+                <option value=""></option>
+                <option value=""></option>
+            </select>
+            <select class="scelta-mese" name="">
+                <option value="">-- scegli mese vendita --</option>
+                <option value=""></option>
+            </select>
+            <input type="number" id="importo-vendita" placeholder="inserisci importo">
+            <button id="aggiungi-vendita">Aggiungi</button>
+        </header>
         <div class="chart-container">
             <canvas id="myChart"></canvas>
             <h1>Vendite totali ripartite tra i venditori</h1>

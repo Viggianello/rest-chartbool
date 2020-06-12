@@ -6,4 +6,9 @@
 .chart-container{
     margin: auto;
     width: 550px;
+    text-align: center;
+}
+header{
+    text-align: center;
+    padding: 50px 0;
 }
